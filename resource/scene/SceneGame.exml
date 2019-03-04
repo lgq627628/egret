@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SceneGameSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="169370b0be5" ></w:Config>
+	<e:Image source="bg2_jpg" left="0" right="0" top="0" bottom="0"/>
+	<e:Group id="blockPanel" left="0" right="0" top="0" bottom="0">
+		<e:Image id="player" source="piece_png" x="156" y="765.03"/>
+		<e:Label id="scoreLabel" text="0" x="129" y="128.57" textColor="0x000000" size="90"/>
+	</e:Group>
+	<e:Group id="overPanel" left="0" right="0" top="0" bottom="0" visible="false">
+		<e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.5" strokeAlpha="0.5"/>
+		<e:Label text="本次得分" x="260" y="176.61"/>
+		<e:Label id="overScoreLabel" text="0" x="220" y="257.19" size="90" anchorOffsetX="0" width="200" textAlign="center"/>
+		<e:Button id="restartBtn" label="" x="165.5" y="870.79">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="restart_btn_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+	</e:Group>
+</e:Skin>

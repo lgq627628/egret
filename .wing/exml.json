@@ -1,0 +1,12 @@
+{
+    "16933b1f387": {
+        "path": "scene/SceneBegin.ts",
+        "class": "SceneBegin",
+        "parentPath": ""
+    },
+    "169370b0be5": {
+        "path": "scene/SceneGame.ts",
+        "class": "SceneGame",
+        "parentPath": ""
+    }
+}
