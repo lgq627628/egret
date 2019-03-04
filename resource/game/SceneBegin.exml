@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SceneBeginSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="1690eb59ea1" ></w:Config>
+	<e:Image source="GameBG1_jpg" left="0" right="0" top="0" bottom="0"/>
+	<e:Button id="btn_begin" label="" x="142.5" y="1002">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="StartBtn_png" source.down="StartBtn1_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="btn_setting" label="设置" x="490" y="20" anchorOffsetX="0" width="131" anchorOffsetY="0" height="59">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="MoneyBG_png" source.down="MoneyBG_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+</e:Skin>

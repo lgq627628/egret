@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DlgSettingSkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="1690ecc4db6" ></w:Config>
+	<e:Rect left="0" right="0" top="0" bottom="0" fillAlpha="0.5"/>
+	<e:Image source="MoneyBG_png" x="70" y="368" width="500" height="400"/>
+	<e:Label text="设置" x="283" y="418"/>
+	<e:Button id="btn_confirm" label="" x="256.5" y="660">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="YesBtn_jpg" source.down="YesBtn1_jpg"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Group id="gp_music" width="76" height="72" x="170" y="514" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Button id="btn_music" label="" x="0" y="0" scaleX="1" scaleY="1">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="btn_music_png" source.down="btn_music_down_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Image id="btn_music_dis" source="btn_disable_png" x="0" y="0" width="76" height="72" scaleX="1" scaleY="1" visible="false"/>
+	</e:Group>
+	<e:Group id="gp_effect" width="76" height="72" x="400" y="514" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Button id="btn_effect" label="" x="0" y="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="btn_sound_png" source.down="btn_sound_down_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Image id="btn_effect_dis" source="btn_disable_png" x="0" y="0" width="76" height="72" visible="false"/>
+	</e:Group>
+</e:Skin>

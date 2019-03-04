@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="WordSkin" width="80" height="80" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="169143610d4" ></w:Config>
+	<e:Rect width="80" height="80" x="0" y="0" fillColor="0xffffff" strokeColor="0x0222f4" strokeWeight="4" ellipseWidth="20" ellipseHeight="20"/>
+	<e:Label id="lab_word" text="字" textColor="0x000000" size="40" verticalCenter="0" width="80" height="80" horizontalCenter="0" textAlign="center" verticalAlign="middle"/>
+</e:Skin>

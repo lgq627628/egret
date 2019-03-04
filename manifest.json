@@ -1,0 +1,25 @@
+{
+	"initial": [
+		"libs/modules/egret/egret.js",
+		"libs/modules/egret/egret.web.js",
+		"libs/modules/eui/eui.js",
+		"libs/modules/assetsmanager/assetsmanager.js",
+		"libs/modules/tween/tween.js",
+		"libs/modules/promise/promise.js"
+	],
+	"game": [
+		"bin-debug/game/LevelData.js",
+		"bin-debug/AssetAdapter.js",
+		"bin-debug/Main.js",
+		"bin-debug/Platform.js",
+		"bin-debug/ThemeAdapter.js",
+		"bin-debug/game/DlgSetting.js",
+		"bin-debug/LoadingUI.js",
+		"bin-debug/game/LevelIcon.js",
+		"bin-debug/game/SceneBegin.js",
+		"bin-debug/game/SceneGame.js",
+		"bin-debug/game/SceneLevel.js",
+		"bin-debug/game/SoundManager.js",
+		"bin-debug/game/Word.js"
+	]
+}

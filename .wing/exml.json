@@ -1,0 +1,37 @@
+{
+    "1690eb59ea1": {
+        "path": "game/SceneBegin.ts",
+        "class": "SceneBegin",
+        "parentPath": ""
+    },
+    "1690ecc4db6": {
+        "path": "game/DlgSetting.ts",
+        "class": "DlgSetting",
+        "parentPath": ""
+    },
+    "1690f7546e4": {
+        "path": "game/SceneLevel.ts",
+        "class": "SceneLevel",
+        "parentPath": ""
+    },
+    "16913329074": {
+        "path": "game/LevelIcon.ts",
+        "class": "LevelIcon",
+        "parentPath": "resource/eui_skins/ButtonSkin.exml"
+    },
+    "16913e4e31b": {
+        "path": "game/SceneGame.ts",
+        "class": "SceneGame",
+        "parentPath": ""
+    },
+    "169143610d4": {
+        "path": "game/Word.ts",
+        "class": "Word",
+        "parentPath": ""
+    },
+    "16922a8621a": {
+        "path": "game/hh.ts",
+        "class": "hh",
+        "parentPath": ""
+    }
+}
