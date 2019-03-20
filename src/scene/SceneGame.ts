@@ -1,29 +1,27 @@
 class SceneGame extends eui.Component implements  eui.UIComponent {
-	// 游戏场景组
+	// 盒子场景面板
 	public blockPanel: eui.Group;
-	// 小 i
+	// 小人
 	public player: eui.Image;
-	// 游戏场景中的积分
-	public scoreLabel: eui.Label;
-	// 所有方块资源的数组
+	// 方块资源
 	private blockSourceNames: Array<string> = [];
 	// 按下的音频
 	private pushVoice: egret.Sound;
-	// 按下音频的SoundChannel对象
+	// 按下音频的 SoundChannel 对象
 	private pushSoundChannel: egret.SoundChannel;
 	// 弹跳的音频
 	private jumpVoice: egret.Sound;
-	// 所有方块的数组
+	// 舞台中的方块数组
 	private blockArr: Array<eui.Image> = [];
-	// 所有回收方块的数组
+	// 回收的方块数组
 	private reBackBlockArr: Array<eui.Image> = [];
 	// 当前的盒子（最新出现的盒子，就是准备要跳过去的目标盒子）
 	private currentBlock: eui.Image;
-	// 下一个盒子方向(1靠右侧出现/-1靠左侧出现)
+	// 下一个的盒子方向（1靠右侧出现，-1靠左侧出现）
 	public direction: number = 1;
-	// 随机盒子距离跳台的距离
-	private minDistance = 200;
-	private maxDistance = 300;
+	// 随机盒子的最大最小水平距离
+	private minDistance = 220;
+	private maxDistance = 320;
 	// tanθ角度值
 	public tanAngle: number = 0.556047197640118;
 
@@ -37,10 +35,13 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 	private leftOrigin = { "x": 180, "y": 350 };
 	// 右侧跳跃点
 	private rightOrigin = { "x": 505, "y": 350 };
-	// 游戏中得分
+	// 游戏中得分（数字）
 	private score = 0;
+	// 显示的得分（字符串）
+	public scoreLabel: eui.Label;
 	// 跳跃距离根据当前按压时间来确定
 	private time:number = 0;
+
 	// 游戏结束场景
 	public overPanel: eui.Group;
 	public overScoreLabel: eui.Label;
@@ -63,7 +64,6 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		super.partAdded(partName,instance);
 	}
 
-
 	protected childrenCreated():void
 	{
 		super.childrenCreated();
@@ -71,17 +71,18 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 	}
 	
 	private init() {
-		// 跳台图片
+		// 所以盒子资源
 		this.blockSourceNames = ["block1_png", "block2_png", "block3_png"];
-		// 点击声音
+		// 按下和跳跃的声音
 		this.pushVoice = RES.getRes('push_mp3');
 		this.jumpVoice = RES.getRes('jump_mp3');
+		// 初始化场景（方块和小人）
 		this.initBlock();
 		// 添加触摸事件
 		this.blockPanel.touchEnabled = true;
 		this.blockPanel.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTapDown, this);
 		this.blockPanel.addEventListener(egret.TouchEvent.TOUCH_END, this.onTapUp, this);
-		// // 心跳计时器，计算按的时长，推算出跳的距离
+		// 心跳计时器（计算按的时长，推算出跳的距离）
 		egret.startTick(this.computeDistance, this);
 	}
 
@@ -92,7 +93,7 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		let pass = now - time;
 		pass /= 1000;
 		if (this.isReadyJump) {
-			this.jumpDistance += 300 * pass;
+			this.jumpDistance += 300 * pass; // 就是 s = vt，需要注意的是这里算的是横坐标位移而不是斜线位移
 		}
 		this.time = now;
 		return true;
@@ -103,8 +104,8 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		this.pushSoundChannel = this.pushVoice.play(0, 1);
 
 		// 使小人变矮做出积蓄能量的效果
-		egret.Tween.get(this.player)
-			.to({scaleY: 0.5}, 3000);
+		egret.Tween.get(this.player).to({scaleY: 0.5}, 3000);
+
 		this.isReadyJump = true;
 	}
 
@@ -117,9 +118,8 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		this.pushSoundChannel.stop();
 		this.jumpVoice.play(0, 1);
 
-		// 清除所有动画 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// 清除所有动画
 		egret.Tween.removeAllTweens();
-		this.blockPanel.addChildAt(this.player, 5);
 		this.isReadyJump = false;
 
 		// 计算落点坐标
@@ -127,7 +127,7 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		this.targetPos.y = this.player.y + this.direction * this.jumpDistance * (this.currentBlock.y - this.player.y) / (this.currentBlock.x - this.player.x);
 
 		// 执行跳跃动画
-		egret.Tween.get(this).to({ factor: 1 }, 500).call(() => { // 这表示贝塞尔曲线，在500毫秒内，this的factor属性将会缓慢趋近1这个值，这里的factor就是曲线中的t属性，它是从0到1的闭区间。
+		egret.Tween.get(this).to({ factor: 1 }, 400).call(() => { // 这表示贝塞尔曲线，在 400 毫秒内，this 的 factor 属性将会缓慢趋近1这个值，这里的 factor 就是曲线中的 t 属性，它是从 0 到 1 的闭区间。
 			this.player.scaleY = 1;
 			this.jumpDistance = 0;
 			// 判断跳跃是否成功
@@ -137,8 +137,8 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		this.player.anchorOffsetY = this.player.height / 2;
 		egret.Tween.get(this.player)
 			.to({ rotation: this.direction > 0 ? 360 : -360 }, 200)
-			.call(() => {this.player.rotation = 0})
-			.call(() => {this.player.anchorOffsetY = this.player.height - 20;});
+			.call(() => { this.player.rotation = 0 })
+			.call(() => { this.player.anchorOffsetY = this.player.height - 20; });
 	}
 
 	// 添加一个方块
@@ -157,7 +157,7 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		this.currentBlock = blockNode;
 	}
 
-	// 工厂方法，创建一个方块
+	// 创建一个方块
 	private createBlock(): eui.Image {
 		var blockNode = null;
 		if (this.reBackBlockArr.length) {
@@ -206,7 +206,7 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 			egret.Tween.get(this.player).to({
 				x: playerX,
 				y: playerY
-			}, 1000).call(() => {
+			}, 800).call(() => {
 				// 开始创建下一个方块
 				this.addBlock();
 				// 让屏幕重新可点;
@@ -235,7 +235,7 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 				egret.Tween.get(blockNode).to({
 					x: blockNode.x - x,
 					y: blockNode.y - y
-				}, 1000)
+				}, 800)
 			}
 		}
 	}
@@ -247,6 +247,8 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		// 清空舞台
 		this.blockPanel.removeChildren();
 		this.blockArr = [];
+		this.reBackBlockArr = [];
+
 		// 进行初始化
 		this.initBlock();
 
@@ -255,35 +257,35 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 	}
 
 	private initBlock() {
-		console.log('开始啦，为啥不执行');
 		// 初始化第一个方块
 		this.currentBlock = this.createBlock();
 		this.currentBlock.x = this.leftOrigin.x;
-		// this.currentBlock.y = this.leftOrigin.y;
 		this.currentBlock.y = this.stage.stageHeight - this.currentBlock.height - 110;
-		console.log(this.currentBlock.x, this.currentBlock.y);
-		this.blockPanel.addChildAt(this.currentBlock, 1);
+		this.blockPanel.addChild(this.currentBlock);
 		// 初始化小人
 		this.player.y = this.currentBlock.y;
 		this.player.x = this.currentBlock.x;
 		this.player.anchorOffsetX = this.player.width / 2;
 		this.player.anchorOffsetY = this.player.height - 20;
-		this.blockPanel.addChildAt(this.player, 5);
+		this.blockPanel.addChild(this.player);
 		// 初始化得分
 		this.blockPanel.addChild(this.scoreLabel);
+		// 初始化方向
 		this.direction = 1;
+		// 添加下一个盒子
 		this.addBlock();
 	}
 
-	// 添加factor的set、get方法，注意用public  
+	// 添加 factor 的 set、get 方法，注意用 public
 	public get factor():number {
 		return 0;
 	}
 	// 计算方法参考二次贝塞尔公式：https://blog.csdn.net/korekara88730/article/details/45743339
-	// 这里的getter使factor属性从0开始，结合刚才tween中传入的1，使其符合公式中的t的取值区间。
-	// 而重点是这里的setter，里面的ball对象是我们要应用二次贝塞尔曲线的显示对象，而在setter中给ball对象的xy属性赋值的公式正是之前列出的二次贝塞尔曲线公式。这里的P0点是(100,100)，P1点是(300,300)，P2点是(100,500)。
-	public set factor(value:number) {
-		this.player.x = (1 - value) * (1 - value) * this.player.x + 2 * value * (1 - value) * (this.player.x + this.targetPos.x) / 2 + value * value * (this.targetPos.x);
-		this.player.y = (1 - value) * (1 - value) * this.player.y + 2 * value * (1 - value) * (this.targetPos.y - 300) + value * value * (this.targetPos.y);
+	// 这里的 getter 使 factor 属性从 0 开始，结合刚才 tween 中传入的 1，使其符合公式中的 t 的取值区间。
+	// 而重点是这里的 setter，里面的 player 对象是我们要应用二次贝塞尔曲线的显示对象，而在 setter 中给 player 对象的 xy 属性赋值的公式正是之前列出的二次贝塞尔曲线公式。
+	// 这里的 P0 点是(100,100)，P1 点是(300,300)，P2 点是(100,500)。
+	public set factor(t:number) {
+		this.player.x = (1 - t) * (1 - t) * this.player.x + 2 * t * (1 - t) * (this.player.x + this.targetPos.x) / 2 + t * t * (this.targetPos.x);
+		this.player.y = (1 - t) * (1 - t) * this.player.y + 2 * t * (1 - t) * (this.targetPos.y - 300) + t * t * (this.targetPos.y);
 	}
 }

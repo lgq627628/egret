@@ -8,5 +8,10 @@
         "path": "scene/SceneGame.ts",
         "class": "SceneGame",
         "parentPath": ""
+    },
+    "16993e438ce": {
+        "path": "scene/hh.ts",
+        "class": "hh",
+        "parentPath": ""
     }
 }

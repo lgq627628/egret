@@ -1,14 +1,6 @@
 class SceneBegin extends eui.Component implements  eui.UIComponent {
 	public beginBtn:eui.Button;
 
-	public static shared:SceneBegin;
-	public static getInstance() {
-		if (!SceneBegin.shared) {
-			SceneBegin.shared = new SceneBegin();
-		}
-		return SceneBegin.shared;
-	}
-
 	public constructor() {
 		super();
 	}
@@ -26,19 +18,11 @@ class SceneBegin extends eui.Component implements  eui.UIComponent {
 	}
 
 	private init() {
-		this.beginBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.start, this);
+		this.beginBtn.once(egret.TouchEvent.TOUCH_TAP, this.start, this);
 	}
 
 	private start() {
-		this.release();
-		this.parent.addChild(SceneGame.getInstance());
+		this.parent.addChild(new SceneGame());
 		this.parent.removeChild(this);
 	}
-
-	private release() {
-		if (this.beginBtn.hasEventListener(egret.TouchEvent.TOUCH_TAP)) {
-			this.beginBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.start, this);			
-		}
-	}
-	
 }
