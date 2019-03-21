@@ -90,7 +90,7 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 	}
 
 	private onTapDown() {
-		// 播放按下音效
+		// 播放按下音效，参数为（从哪里开始播放，播放次数）
 		this.pushSoundChannel = this.pushVoice.play(0, 1);
 
 		// 使小人变矮做出积蓄能量的效果
@@ -154,7 +154,7 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		// 使用随机背景图
 		let n = Math.floor(Math.random() * this.blockSourceNames.length);
 		blockNode.source = this.blockSourceNames[n];
-		this.blockPanel.addChild(blockNode);
+		this.blockPanel.addChildAt(blockNode, 1);
 		// 设置方块的锚点（之前说过的不是图片的中心点，而是图中盒子的中心点）
 		blockNode.anchorOffsetX = 222;
 		blockNode.anchorOffsetY = 78;
@@ -209,7 +209,7 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 			var blockNode = this.blockArr[i];
 			// 盒子的中心点（不是图片的中心点）在屏幕左侧 或者在 屏幕右侧 或者在 屏幕下方
 			if (blockNode.x + blockNode.width - 222 < 0 || blockNode.x - this.stage.stageWidth - 222 > 0 || blockNode.y - this.stage.stageHeight - 78 > 0) {
-				// 方块超出屏幕,从显示列表中移除 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+				// 方块超出屏幕,从显示列表中移除
 				if (blockNode) this.blockPanel.removeChild(blockNode);
 				this.blockArr.splice(i, 1);
 			} else {
@@ -241,7 +241,7 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		// 初始化第一个方块
 		this.currentBlock = this.createBlock();
 		this.currentBlock.x = this.leftOrigin.x;
-		this.currentBlock.y = this.stage.stageHeight - this.currentBlock.height - 110;
+		this.currentBlock.y = this.stage.stageHeight - this.leftOrigin.y;
 		this.blockPanel.addChild(this.currentBlock);
 		// 初始化小人
 		this.player.y = this.currentBlock.y;
@@ -251,6 +251,7 @@ class SceneGame extends eui.Component implements  eui.UIComponent {
 		this.blockPanel.addChild(this.player);
 		// 初始化得分
 		this.score = 0;
+		// 把数字装换成字符串格式
 		this.scoreLabel.text = this.score.toString();
 		this.blockPanel.addChild(this.scoreLabel);
 		// 初始化方向
